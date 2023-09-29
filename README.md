@@ -1,4 +1,4 @@
-This is sample application developed for demo purpose to integrate with BlokGPT system. Please follow below steps to setup or run the app in local.
+This is sample application developed for learning purpose. Please follow below steps to setup or run the app in local.
 
 Techstack:
 -----------------------
