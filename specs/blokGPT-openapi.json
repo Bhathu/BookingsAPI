@@ -1,0 +1,641 @@
+{
+   "openapi":"3.0.1",
+   "info":{
+      "title":"BlokGPT API",
+      "description":"ChatBot for Bloking courts or to create new court",
+      "version":"1.0"
+   },
+   "servers":[
+      {
+         "url":"http://localhost:8080/blokGPT",
+         "description":"Generated server url"
+      }
+   ],
+   "tags":[
+      {
+         "name":"Customers",
+         "description":"Customers management APIs"
+      },
+      {
+         "name":"Courts",
+         "description":"Courts management APIs"
+      },
+      {
+         "name":"Bookings",
+         "description":"Bookings management APIs"
+      },
+      {
+         "name":"HealthCheck",
+         "description":"BlokGPT health check APIs"
+      }
+   ],
+   "paths":{
+      "/customers/add":{
+         "post":{
+            "tags":[
+               "Customers",
+               "save"
+            ],
+            "summary":"Add a new customer to BlokGPT Database",
+            "description":"Provide the customer details in JSON format to add it to BlokGPT DB",
+            "operationId":"addCustomer",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/CustomersBO"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CustomersBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/courts/add":{
+         "post":{
+            "tags":[
+               "save",
+               "Courts"
+            ],
+            "summary":"Add a new court/venue to BlokGPT Database",
+            "description":"Provide the court details in JSON format to add it to BlokGPT DB",
+            "operationId":"addCourts",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/CourtsBO"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CourtsBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/bookings/add":{
+         "post":{
+            "tags":[
+               "save",
+               "Bookings"
+            ],
+            "summary":"Add a new bookings to BlokGPT Database",
+            "description":"Add new court bookings in JSON format to BlokGPT DB",
+            "operationId":"addBookings",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/BookingsBO"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/BookingsBO"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      },
+      "/healthCheck":{
+         "get":{
+            "tags":[
+               "healthCheck",
+               "HealthCheck"
+            ],
+            "summary":"Health check API",
+            "description":"This API provides update on application health check",
+            "operationId":"healthCheck",
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "type":"string"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/customers/fetch":{
+         "get":{
+            "tags":[
+               "getAll",
+               "Customers"
+            ],
+            "summary":"Get all customers from BlokGPT Database",
+            "description":"Get all the customer details in JSON format from BlokGPT DB",
+            "operationId":"getAllCustomers",
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CustomersBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/customers/fetch/{id}":{
+         "get":{
+            "tags":[
+               "Customers",
+               "getOne"
+            ],
+            "summary":"Get customer for the provided id from BlokGPT Database",
+            "description":"Get the customer details in JSON format for the provided id from BlokGPT DB",
+            "operationId":"getCustomerById",
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"integer",
+                     "format":"int32"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CustomersBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/courts/fetch":{
+         "get":{
+            "tags":[
+               "fetchAll",
+               "Courts"
+            ],
+            "summary":"Get list of all the courts available in BlokGPT DB",
+            "description":"Provides the list of all the courts availble in BlokGPT DB when no paramateres are provided",
+            "operationId":"getAllCourts",
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CourtsBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/courts/fetch/{id}":{
+         "get":{
+            "tags":[
+               "get",
+               "id",
+               "court",
+               "Courts"
+            ],
+            "summary":"Get the Court based on id",
+            "description":"Get court for the provided id available in BlokGPT Database",
+            "operationId":"getCourtsById",
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"integer",
+                     "format":"int32"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CourtsBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/courts/fetch/location":{
+         "get":{
+            "tags":[
+               "address",
+               "get",
+               "Courts"
+            ],
+            "summary":"Get all the courts in a particular location",
+            "description":"Get all the courts from the provided location available in BlokGPT Database",
+            "operationId":"getCourtsInALocation",
+            "parameters":[
+               {
+                  "name":"location",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/CourtsBO"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/courts/address":{
+         "get":{
+            "tags":[
+               "address",
+               "get",
+               "Courts"
+            ],
+            "summary":"Get the address of a particular court name passed in the request",
+            "description":"Get the address of the court name provided in the req available in BlokGPT Database",
+            "operationId":"getAddress",
+            "parameters":[
+               {
+                  "name":"courtName",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "type":"string"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      },
+      "/bookings/search/customer":{
+         "get":{
+            "tags":[
+               "Bookings By Customer Id",
+               "Bookings",
+               "getBookingsByCustomerId"
+            ],
+            "summary":"Get all the bookings for the provided customer id from BlokGPT Database",
+            "description":"Get all the booking details in JSON format for the provided customer id from BlokGPT DB",
+            "operationId":"getBookingsByCustomerId",
+            "parameters":[
+               {
+                  "name":"customerId",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"integer",
+                     "format":"int32"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/BookingsBO"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      },
+      "/bookings/search/court":{
+         "get":{
+            "tags":[
+               "Bookings By Court Id",
+               "getBookingsByCourtId",
+               "Bookings"
+            ],
+            "summary":"Get all the bookings for the provided court id from BlokGPT Database",
+            "description":"Get all the booking details in JSON format for the provided court id from BlokGPT DB",
+            "operationId":"getBookingsByCourtId",
+            "parameters":[
+               {
+                  "name":"courtId",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"integer",
+                     "format":"int32"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/BookingsBO"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      },
+      "/bookings/fetch":{
+         "get":{
+            "tags":[
+               "getAll",
+               "Bookings"
+            ],
+            "summary":"Get all bookings from BlokGPT Database",
+            "description":"Get all the bookings details in JSON format from BlokGPT DB",
+            "operationId":"getAllBookings",
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/BookingsBO"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      },
+      "/bookings/fetch/{id}":{
+         "get":{
+            "tags":[
+               "getOne",
+               "Bookings"
+            ],
+            "summary":"Get bookings for the provided id from BlokGPT Database",
+            "description":"Get the booking details in JSON format for the provided id from BlokGPT DB",
+            "operationId":"getBookingsById",
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"integer",
+                     "format":"int32"
+                  }
+               }
+            ],
+            "responses":{
+               "404":{
+                  "description":"Not Found"
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/BookingsBO"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error"
+               }
+            }
+         }
+      }
+   },
+   "components":{
+      "schemas":{
+         "CustomersBO":{
+            "type":"object",
+            "properties":{
+               "customerId":{
+                  "type":"integer",
+                  "format":"int32"
+               },
+               "customerName":{
+                  "type":"string"
+               },
+               "addressLine1":{
+                  "type":"string"
+               },
+               "addressLine2":{
+                  "type":"string"
+               },
+               "city":{
+                  "type":"string"
+               },
+               "mobileNumber":{
+                  "type":"string"
+               },
+               "postalcode":{
+                  "type":"string"
+               },
+               "state":{
+                  "type":"string"
+               }
+            }
+         },
+         "CourtsBO":{
+            "type":"object",
+            "properties":{
+               "courtId":{
+                  "type":"integer",
+                  "format":"int32"
+               },
+               "courtName":{
+                  "type":"string"
+               },
+               "addressLine1":{
+                  "type":"string"
+               },
+               "city":{
+                  "type":"string"
+               },
+               "postalCode":{
+                  "type":"string"
+               },
+               "state":{
+                  "type":"string"
+               },
+               "addressLine2":{
+                  "type":"string"
+               }
+            }
+         },
+         "BookingsBO":{
+            "type":"object",
+            "properties":{
+               "bookingId":{
+                  "type":"integer",
+                  "format":"int32"
+               },
+               "courtId":{
+                  "type":"integer",
+                  "format":"int32"
+               },
+               "customerId":{
+                  "type":"integer",
+                  "format":"int32"
+               },
+               "playDate":{
+                  "type":"string",
+                  "format":"date-time"
+               },
+               "startTime":{
+                  "type":"string",
+                  "format":"date-time"
+               },
+               "endTime":{
+                  "type":"string",
+                  "format":"date-time"
+               }
+            }
+         }
+      }
+   }
+}
